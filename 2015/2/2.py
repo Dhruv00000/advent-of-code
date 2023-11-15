@@ -31,5 +31,3 @@ for box in inputText:
 
 print(totalPaperRequirement)
 print(totalRibbonRequirement)
-
-text.close()

@@ -14,5 +14,3 @@ for step in instructions:
         foundPos = True
 
 print(floor)
-
-text.close()

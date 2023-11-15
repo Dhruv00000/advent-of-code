@@ -47,5 +47,3 @@ for string in strings:
 
 print(niceStringCount)
 print(niceStringCount_alternate)
-
-inputText.close()

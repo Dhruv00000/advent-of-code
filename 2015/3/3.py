@@ -66,5 +66,3 @@ for i, step in enumerate(directions):
         deliveredToCopy.append((roboX, roboY))
 
 print(len(set(deliveredToCopy)))
-
-directionsText.close()
