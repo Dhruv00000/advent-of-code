@@ -1,68 +1,57 @@
-# TODO: Use functions.
 with open("input", "r") as directionsText:
     directions = directionsText.readline()
 
-santaX, santaY, roboX, roboY, deliveredTo, deliveredToCopy = (
-    0,
-    0,
-    0,
-    0,
-    [(0, 0)],
-    [(0, 0)],
-)
-
-
-def move(delivererX, delivererY, step, toAppend):
-    if step == "<":
-        delivererX -= 1
-    elif step == ">":
-        delivererX += 1
-    elif step == "^":
-        delivererY += 1
-    else:
-        delivererY -= 1
-
-    toAppend.append((delivererX, delivererY))
-
+santaCoordinates: list[int] = [0, 0]
+robotCoordinates: list[int] = [0, 0]
+presentCount_part1: list[tuple[int]] = [(0, 0)]
+presentCount_part2: list[tuple[int]] = [(0, 0)]
 
 for step in directions:
-    if step == "<":
-        santaX -= 1
-    elif step == ">":
-        santaX += 1
-    elif step == "^":
-        santaY += 1
+    match step:
+        case ">":
+            santaCoordinates[0] += 1
+        case "<":
+            santaCoordinates[0] -= 1
+        case "^":
+            santaCoordinates[1] += 1
+        case "v":
+            santaCoordinates[1] -= 1
+
+    if (santaCoordinates[0], santaCoordinates[1]) not in presentCount_part1:
+        presentCount_part1.append((santaCoordinates[0], santaCoordinates[1]))
+
+print(len(presentCount_part1))
+
+santaCoordinates: list[int] = [0, 0] # santa's coordinates must be reset back to (0,0) before starting the first part because the same variable was used and modified in the first part.
+
+for counter, step in enumerate(directions):
+
+    if counter % 2 == 0:
+        match step:
+            case ">":
+                santaCoordinates[0] += 1
+            case "<":
+                santaCoordinates[0] -= 1
+            case "^":
+                santaCoordinates[1] += 1
+            case "v":
+                santaCoordinates[1] -= 1
+
+        if (santaCoordinates[0], santaCoordinates[1]) not in presentCount_part2:
+            presentCount_part2.append((santaCoordinates[0], santaCoordinates[1]))
+
     else:
-        santaY -= 1
+        match step:
+            case ">":
+                robotCoordinates[0] += 1
+            case "<":
+                robotCoordinates[0] -= 1
+            case "^":
+                robotCoordinates[1] += 1
+            case "v":
+                robotCoordinates[1] -= 1
 
-    deliveredTo.append((santaX, santaY))
+        if (robotCoordinates[0], robotCoordinates[1]) not in presentCount_part2:
+            presentCount_part2.append((robotCoordinates[0], robotCoordinates[1]))
 
-print(len(set(deliveredTo)))
-
-santaX, santaY = 0, 0
-for i, step in enumerate(directions):
-    if i % 2 == 1:
-        if step == "<":
-            santaX -= 1
-        elif step == ">":
-            santaX += 1
-        elif step == "^":
-            santaY += 1
-        else:
-            santaY -= 1
-
-        deliveredToCopy.append((santaX, santaY))
-
-    else:
-        if step == "<":
-            roboX -= 1
-        elif step == ">":
-            roboX += 1
-        elif step == "^":
-            roboY += 1
-        else:
-            roboY -= 1
-
-        deliveredToCopy.append((roboX, roboY))
-
-print(len(set(deliveredToCopy)))
+print(len(presentCount_part2))

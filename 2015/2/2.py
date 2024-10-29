@@ -1,33 +1,26 @@
 with open("input", "r") as text:
     inputText = text.readlines()
 
-totalPaperRequirement, totalRibbonRequirement = 0, 0
+paperRequirement: int = 0
+ribbonRequirement: int = 0
+
 for box in inputText:
     dimensions = box.split("x")
 
-    tsa = 2 * (
-        int(dimensions[0]) * int(dimensions[1])
-        + int(dimensions[1]) * int(dimensions[2])
-        + int(dimensions[2]) * int(dimensions[0])
-    )
-    paperRequirement = tsa + min(
-        [
+    areas: list[int] = [
             (int(dimensions[0]) * int(dimensions[1])),
             (int(dimensions[1]) * int(dimensions[2])),
             (int(dimensions[2]) * int(dimensions[0])),
         ]
-    )
-    totalPaperRequirement += paperRequirement
 
-    vol = int(dimensions[1]) * int(dimensions[2]) * int(dimensions[0])
-    ribbonRequirement = vol + min(
+    paperRequirement += 2 * sum(areas) + min(areas)
+    ribbonRequirement += int(dimensions[1]) * int(dimensions[2]) * int(dimensions[0]) + min(
         [
             2 * (int(dimensions[0]) + int(dimensions[1])),
             2 * (int(dimensions[1]) + int(dimensions[2])),
             2 * (int(dimensions[2]) + int(dimensions[0])),
         ]
     )
-    totalRibbonRequirement += ribbonRequirement
 
-print(totalPaperRequirement)
-print(totalRibbonRequirement)
+print(paperRequirement)
+print(ribbonRequirement)

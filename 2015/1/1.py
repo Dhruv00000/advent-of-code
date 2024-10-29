@@ -1,16 +1,17 @@
 with open("input", "r") as text:
     instructions = text.readline()
 
-floor, foundPos, pos = 0, False, 0
-for step in instructions:
-    pos += 1
+floor: int = 0
+basementReached: bool = False
+for position, step in enumerate(instructions):
+
     if step == "(":
         floor += 1
     else:
         floor -= 1
 
-    if not foundPos and floor < 0:
-        print(pos)
-        foundPos = True
+    if not basementReached and floor == -1:
+        print(position + 1)
+        basementReached = True
 
 print(floor)
