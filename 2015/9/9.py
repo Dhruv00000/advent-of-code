@@ -3,29 +3,21 @@ from itertools import permutations
 with open("input", "r") as inputText:
     paths = inputText.readlines()
 
-starting_locations: set = set()
-ending_locations: set = set()
-
 path_dict: dict = {}
+locations: set[str] = set()
 for path in paths:
 
     splitList = path.split(" = ")
     distance: int = int(splitList[1])
-    locations = splitList[0].split(" to ")
+    cities = splitList[0].split(" to ")
     del splitList
 
-    starting_locations.add(locations[0])
-    ending_locations.add(locations[1])
+    locations.add(cities[0])
+    locations.add(cities[1])
 
-    path_dict[(locations[0], locations[1])] = distance
+    path_dict[(cities[0], cities[1])] = distance
 
-locations: set = starting_locations.union(ending_locations)
-
-# The set difference operation gives a set of all locations that you can start at but not end at, or vice-versa. This allows us to determine which locations we must start and end at.
-start: str = list(starting_locations - ending_locations)[0]
-end: str = list(ending_locations - starting_locations)[0]
-del starting_locations
-del ending_locations
+del cities
 
 path_lengths: set = set()
 for path in permutations(locations):
