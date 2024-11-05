@@ -3,7 +3,6 @@ from numpy import uint16
 with open("input", "r") as inputText:
     instructions = inputText.readlines()
 
-
 def operation_handling(target: str, source: str, override: uint16 | None) -> None:
 
     if "AND" in source:
@@ -58,4 +57,4 @@ b_value = emulate_circuit()
 print(b_value)
 
 circuit = {}
-print(emulate_circuit(b_value))
+print(emulate_circuit(uint16(b_value)))
